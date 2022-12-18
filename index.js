@@ -2,6 +2,5 @@
 
 const fs = require('fs');
 
-let rawdata = fs.readFileSync('package.json');
-let student = JSON.parse(rawdata);
-console.log(student);
+let Data = fs.readFileSync('package.json');
+let metaData = JSON.parse(rawdata);
