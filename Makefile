@@ -1,4 +1,4 @@
 help:
-		node gendiff -h
+		node bin/gendiff -h
 publish:
 		npm publish --dry-run
