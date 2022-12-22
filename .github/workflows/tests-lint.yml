@@ -11,9 +11,10 @@ jobs:
       # экшен, выполняет какую-то задачу
       # checkout – клонирует репозиторий
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          cache: npm
       # Ставим зависимости
-      - run: npm install
-      # run – произвольная bash-команда
-      # ls -la выведет содержимое текущего репозитория
+      - run: make setup
       - run: make lint
