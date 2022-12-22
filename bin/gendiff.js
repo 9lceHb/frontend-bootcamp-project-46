@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-// const program = require('commander');
-// const fs = require('fs');
 import * as fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 import * as yaml from 'js-yaml';
 
-const readJson = (ppath) => {
-  const data = fs.readFileSync(ppath);
-  if (ppath.extname === '.json') {
+const readJson = (filePath) => {
+  const data = fs.readFileSync(filePath);
+  if (filePath.extname === '.json') {
     return JSON.parse(data);
   }
   return yaml.load(data);
@@ -23,22 +21,27 @@ const filesCompare = (filepath1, filepath2) => {
   const keyIntersection = _.intersection(data1Keys, data2Keys);
   const key1Difference = _.difference(data1Keys, data2Keys);
   const key2Difference = _.difference(data2Keys, data1Keys);
-  let result = '';
-  for (const key of keyIntersection) {
+  let result = [];
+
+  const keyIntersectionResult = keyIntersection.map((key) => {
     if (data1[key] === data2[key]) {
-      result += `  ${key}: ${data1[key]}\n`;
-    } else {
-      result += `- ${key}: ${data1[key]}\n`;
-      result += `+ ${key}: ${data2[key]}\n`;
+      return [`  ${key}: ${data1[key]}`];
     }
-  }
-  for (const key of key1Difference) {
-    result += `- ${key}: ${data1[key]}\n`;
-  }
-  for (const key of key2Difference) {
-    result += `+ ${key}: ${data2[key]}\n`;
-  }
-  return result;
+    return [`- ${key}: ${data1[key]}`, `+ ${key}: ${data2[key]}`];
+  });
+
+  const key1DifferenceResult = key1Difference.map((key) => [
+    `- ${key}: ${data1[key]}`,
+  ]);
+  const key2DifferenceResult = key2Difference.map((key) => [
+    `+ ${key}: ${data2[key]}`,
+  ]);
+  result = [
+    ...keyIntersectionResult,
+    ...key1DifferenceResult,
+    ...key2DifferenceResult,
+  ].flat();
+  return result.join('\n');
 };
 
 const printFileDiff = (filepath1, filepath2) => {
@@ -47,8 +50,8 @@ const printFileDiff = (filepath1, filepath2) => {
 
 const metaData = readJson(
   path.resolve(
-    '/home/sergei/javascript_education/frontend-bootcamp-project-46/package.json'
-  )
+    '/home/sergei/javascript_education/frontend-bootcamp-project-46/package.json',
+  ),
 );
 program
   .name('gendiff')
@@ -56,7 +59,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .option('-f --format', 'get format of answer')
   .version(metaData.version)
-  //.action(console.log(filesCompare(filepath1, filepath2)));
+  // .action(console.log(filesCompare(filepath1, filepath2)));
   .action(printFileDiff);
 
 program.parse(process.argv);
