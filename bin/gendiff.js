@@ -45,7 +45,7 @@ const filesCompare = (filepath1, filepath2) => {
 };
 
 const printFileDiff = (filepath1, filepath2) => {
-  console.log(filesCompare(filepath1, filepath2))
+  console.log(filesCompare(filepath1, filepath2));
 };
 
 const metaData = readJson(
