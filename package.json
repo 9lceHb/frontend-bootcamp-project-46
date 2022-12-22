@@ -8,8 +8,7 @@
     "gendiff": "bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx jest",
-    "build": "strapi build"
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
