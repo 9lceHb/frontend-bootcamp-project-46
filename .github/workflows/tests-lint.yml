@@ -16,5 +16,5 @@ jobs:
           node-version: '18.x'
           cache: npm
       # Ставим зависимости
-      - run: make install
+      - run: make setup
       - run: make lint
