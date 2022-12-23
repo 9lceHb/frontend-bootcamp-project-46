@@ -1,6 +1,8 @@
 name: tests-lint
 # on – определяет события, которые запускают воркфлоу
 on: push
+env:
+  CI: true
 jobs:
   # build – произвольно выбранное имя задания
   # их может быть больше одного
@@ -19,3 +21,10 @@ jobs:
       - run: make ci
       - run: make lint
       - run: make test-coverage
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.2.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.codeclimate_testcoverage }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
