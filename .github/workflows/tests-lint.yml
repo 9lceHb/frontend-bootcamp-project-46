@@ -18,3 +18,4 @@ jobs:
       # Ставим зависимости
       - run: make ci
       - run: make lint
+      - run: make test-coverage
