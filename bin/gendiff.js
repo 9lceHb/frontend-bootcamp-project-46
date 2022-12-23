@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import path from 'path';
-import { readJson, filesCompare } from '../src/utils.js';
+import { filesCompare } from '../src/utils.js';
+import parser from '../src/parsers.js';
 
 const printFileDiff = (filepath1, filepath2) => {
   console.log(filesCompare(filepath1, filepath2));
 };
 
-const metaData = readJson(
+const metaData = parser(
   path.resolve(
     '/home/sergei/javascript_education/frontend-bootcamp-project-46/package.json',
   ),

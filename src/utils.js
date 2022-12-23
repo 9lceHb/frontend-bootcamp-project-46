@@ -1,20 +1,12 @@
 #!/usr/bin/env node
-import * as fs from 'fs';
-import _ from 'lodash';
+import { fileURLToPath } from 'url';
 import path from 'path';
-import * as yaml from 'js-yaml';
-
-const readJson = (filePath) => {
-  const data = fs.readFileSync(path.resolve(filePath));
-  if (filePath.extname === '.json') {
-    return JSON.parse(data);
-  }
-  return yaml.load(data);
-};
+import _ from 'lodash';
+import parser from './parsers.js';
 
 const filesCompare = (filepath1, filepath2) => {
-  const data1 = readJson(filepath1);
-  const data2 = readJson(filepath2);
+  const data1 = parser(filepath1);
+  const data2 = parser(filepath2);
   const data1Keys = Object.keys(data1);
   const data2Keys = Object.keys(data2);
   const keyIntersection = _.intersection(data1Keys, data2Keys);
@@ -37,4 +29,9 @@ const filesCompare = (filepath1, filepath2) => {
   return result.join('\n');
 };
 
-export { readJson, filesCompare };
+const getFixturePath = (filename) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  return path.join(__dirname, '..', '__fixtures__', filename);
+};
+export { filesCompare, getFixturePath };

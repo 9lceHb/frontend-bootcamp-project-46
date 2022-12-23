@@ -6,3 +6,5 @@
 [![tests-lint](https://github.com/9lceHb/frontend-bootcamp-project-46/actions/workflows/tests-lint.yml/badge.svg)](https://github.com/9lceHb/frontend-bootcamp-project-46/actions/workflows/tests-lint.yml)
 
 <https://asciinema.org/a/NBUuNWjA8Y0M2wyJnHp0oP9ag>
+
+<https://asciinema.org/a/eovqmtOqTWvpaK5F7YKcB2MsM>
