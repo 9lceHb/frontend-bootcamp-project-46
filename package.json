@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Compares two configuration files and shows a difference.",
-  "main": "bin/gendiff.js",
+  "main": "index.js",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"

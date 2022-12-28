@@ -1,17 +1,9 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { filesCompare } from '../src/utils.js';
-import { stylish, plain } from '../src/formatters/index.js';
-import parser from '../src/parsers.js';
+import genDiff from '../index.js';
 
 const printFileDiff = (filepath1, filepath2) => {
-  if (program.opts().format === 'stylish') {
-    console.log(stylish(filesCompare(parser(filepath1), parser(filepath2))));
-  } else if (program.opts().format === 'plain') {
-    console.log(plain(filesCompare(parser(filepath1), parser(filepath2))));
-  } else {
-    console.log(JSON.stringify(filesCompare(parser(filepath1), parser(filepath2))));
-  }
+  console.log(genDiff(filepath1, filepath2, program.opts().format));
 };
 
 program
@@ -23,4 +15,4 @@ program
   // .action(console.log(filesCompare(filepath1, filepath2)));
   .action(printFileDiff);
 
-program.parse();
+program.parse(process.argv);
