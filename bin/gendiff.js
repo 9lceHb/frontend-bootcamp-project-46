@@ -15,17 +15,12 @@ const printFileDiff = (filepath1, filepath2) => {
   }
 };
 
-const metaData = parser(
-  path.resolve(
-    '/home/sergei/javascript_education/frontend-bootcamp-project-46/package.json',
-  ),
-);
 program
   .name('gendiff')
-  .description(metaData.description)
+  .description('Compares two configuration files and shows a difference.')
   .arguments('<filepath1> <filepath2>')
   .option('-f, --format <type>', 'get format of answer', 'stylish')
-  .version(metaData.version)
+  .version('1.0.0')
   // .action(console.log(filesCompare(filepath1, filepath2)));
   .action(printFileDiff);
 
