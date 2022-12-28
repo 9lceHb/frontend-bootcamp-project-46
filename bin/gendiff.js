@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import path from 'path';
-import { filesCompare, stylish } from '../src/utils.js';
+import { filesCompare } from '../src/utils.js';
+import { stylish, plain } from '../src/formatters/index.js';
 import parser from '../src/parsers.js';
 
-const printFileDiff = (filepath1, filepath2, formater = program.opts().format) => {
-  if (formater.format === 'stylish') {
+const printFileDiff = (filepath1, filepath2) => {
+  if (program.opts().format === 'stylish') {
     console.log(stylish(filesCompare(parser(filepath1), parser(filepath2))));
   } else {
-    console.log(formater);
+    console.log(plain(filesCompare(parser(filepath1), parser(filepath2))));
   }
 };
 

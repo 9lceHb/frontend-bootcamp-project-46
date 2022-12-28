@@ -27,48 +27,6 @@ const filesCompare = (data1, data2) => {
   return result;
 };
 
-const sortByKey = (key1, key2) => {
-  const keyA = key1.toUpperCase(); // ignore upper and lowercase
-  const keyB = key2.toUpperCase(); // ignore upper and lowercase
-  if (keyA < keyB) {
-    return -1;
-  }
-  if (keyA > keyB) {
-    return 1;
-  }
-  return 0;
-};
-
-const stylish = (data) => {
-  const indent = '  ';
-  const iter = (currentData, nesting = 1) => {
-    const newIndent = indent.repeat(nesting * 2 - 1);
-    const commaIndent = indent.repeat(nesting * 2 - 2);
-    if (Array.isArray(currentData)) {
-      const newItems = currentData
-        .sort((a, b) => sortByKey(a.keyR, b.keyR))
-        .map(({ mark, keyR, value }) => {
-          if (!_.isObject(value)) {
-            return `${newIndent}${mark} ${keyR}: ${value}`;
-          }
-          return `${newIndent}${mark} ${keyR}: ${iter(value, nesting + 1)}`;
-        });
-      return `{\n${newItems.join('\n')}\n${commaIndent}}`;
-    }
-    // если не массив а словарь:
-    const newItems = Object.entries(currentData)
-      .sort((a, b) => sortByKey(a[0], b[0]))
-      .map(([keyR, value]) => {
-        if (!_.isObject(value)) {
-          return `${newIndent}${' '} ${keyR}: ${value}`;
-        }
-        return `${newIndent}${' '} ${keyR}: ${iter(value, nesting + 1)}`;
-      });
-    return `{\n${newItems.join('\n')}\n${commaIndent}}`;
-  };
-  return iter(data);
-};
-
 const getFixturePath = (filename) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
@@ -80,5 +38,5 @@ const getFixturePath = (filename) => {
 // const path3 = getFixturePath('file1_2.yaml');
 // const path4 = getFixturePath('file2_2.yaml');
 export {
-  filesCompare, getFixturePath, stylish,
+  filesCompare, getFixturePath,
 };
