@@ -17,7 +17,7 @@ const filesCompare = (data1, data2) => {
     if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       return [{ mark: ' ', keyR: key, value: filesCompare(data1[key], data2[key]) }];
     }
-    // Возвращает если кто - то не объект
+    // Возвращает если кто - то не объект и были изменения
     return [{ mark: '-', keyR: key, value: data1[key] }, { mark: '+', keyR: key, value: data2[key] }];
   });
   const key1DifferenceResult = key1Difference.map((key) => ({ mark: '-', keyR: key, value: data1[key] }));
@@ -33,8 +33,6 @@ const getFixturePath = (filename) => {
   return path.join(__dirname, '..', '__fixtures__', filename);
 };
 
-// const path1 = getFixturePath('file1_2.json');
-// const path2 = getFixturePath('file2_2.json');
 // const path3 = getFixturePath('file1_2.yaml');
 // const path4 = getFixturePath('file2_2.yaml');
 export {

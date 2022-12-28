@@ -8,8 +8,10 @@ import parser from '../src/parsers.js';
 const printFileDiff = (filepath1, filepath2) => {
   if (program.opts().format === 'stylish') {
     console.log(stylish(filesCompare(parser(filepath1), parser(filepath2))));
-  } else {
+  } else if (program.opts().format === 'plain') {
     console.log(plain(filesCompare(parser(filepath1), parser(filepath2))));
+  } else {
+    console.log(JSON.stringify(filesCompare(parser(filepath1), parser(filepath2))));
   }
 };
 
