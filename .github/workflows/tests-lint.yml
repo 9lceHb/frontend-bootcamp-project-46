@@ -19,7 +19,7 @@ jobs:
           cache: npm
       # Ставим зависимости
       - run: make ci
-      - run: make lint
+      # - run: make lint
       - run: make test-coverage
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
