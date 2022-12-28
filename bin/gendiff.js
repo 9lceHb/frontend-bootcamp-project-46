@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import path from 'path';
 import { filesCompare } from '../src/utils.js';
 import { stylish, plain } from '../src/formatters/index.js';
 import parser from '../src/parsers.js';
