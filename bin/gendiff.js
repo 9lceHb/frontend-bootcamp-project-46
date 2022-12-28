@@ -23,4 +23,4 @@ program
   // .action(console.log(filesCompare(filepath1, filepath2)));
   .action(printFileDiff);
 
-program.parse(process.argv);
+program.parse();
